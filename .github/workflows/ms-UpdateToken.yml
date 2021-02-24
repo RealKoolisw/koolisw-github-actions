@@ -1,0 +1,40 @@
+#每周1，4，6自动更新refresh_token
+name: Update Token
+
+on: 
+  release:
+    types: [published]
+  push:
+    tags:
+    - 'v*'
+  #  branches: 
+  #    - master
+  schedule:
+    - cron: '10 10 * * 1,4,6'
+  watch:
+    types: [started]
+   
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.repository.owner.id == github.event.sender.id  # 自己点的 start
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Install requests and nacl #安装requests和nacl模块
+      run: |
+        pip install requests
+        pip install PyNaCl
+    - name: update secrets #更新token到secret
+      env: 
+        GH_TOKEN: ${{ secrets.GH_TOKEN }} 
+        GH_REPO: ${{ github.repository }}
+        ACCOUNT: ${{ secrets.ACCOUNT }} 
+        ACCOUNT_ADD: ${{ secrets.ACCOUNT_ADD }} 
+        ACCOUNT_DEL: ${{ secrets.ACCOUNT_DEL }} 
+        REDIRECT_URI: ${{ secrets.REDIRECT_URL }}   
+        OTHER_CONFIG: ${{ secrets.OTHER_CONFIG }}  
+        EMAIL: ${{ secrets.EMAIL }}  
+        TG_BOT: ${{ secrets.TG_BOT }}  
+      run: |
+        python UpdateToken.py

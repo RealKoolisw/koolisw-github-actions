@@ -1,0 +1,23 @@
+name: Baidu Push URL
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '30 4 * * *'
+  watch:
+    types: started
+    
+jobs:
+  push-urls-to-baidu:
+    name: Push URL
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: push-urls-to-baidu
+        env:
+          sitemap_txt_url: ${{ secrets.SITEMAP_TXT_URL }}
+          baidu_api: ${{ secrets.BAIDU_API }}
+        run: |
+          wget $sitemap_txt_url -qO urls.txt
+          curl -s -H 'Content-Type:text/plain' --data-binary @urls.txt $baidu_api
+          rm -f urls.txt

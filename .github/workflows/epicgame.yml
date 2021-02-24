@@ -1,0 +1,73 @@
+name: Get Free Epic Game
+
+on:
+  schedule: # 删除本行开头的 # 号
+    - cron: "25 2 * * *" # 删除本行开头的 # 号，另外建议修改一下这个时间，有助于减少失败概率。第一个数字为分钟，第二个数字为小时，注意留空格。
+  watch: # 删除本行开头的 # 号
+    types: started # 删除本行开头的 # 号，点击 Star 按钮可以手动触发 Actions
+  push:
+    branches:
+      - master
+env:
+  TZ: Asia/Hong_Kong
+
+jobs:
+  MainWork:
+    runs-on: ubuntu-latest
+    steps:      
+      - name: Set Timezone to UTC+8
+        env: 
+            DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo timedatectl set-timezone "$TZ"
+          
+      - name: Clone Workflow Repository
+        uses: actions/checkout@v2
+
+      - name: Clone Claimer Repository
+        uses: actions/checkout@v2
+        with:
+          repository: lingsamuel/epicgames-freebies-claimer
+          ref: 'e3e1e572675bc8333c43d32cf716199f7911bde3'
+          path: workdir
+
+      # 在 'Settings' - 'Secrets' 添加 EMAIL (你的 Epic 邮箱)，PASSWD (你的 Epic 密码)，SECRET（二步验证 Secret）
+      - name: Get Gifts
+        run: |
+          cd workdir
+          mkdir .egstore
+          npm install
+          node claimer '${{ secrets.EPICGAME_EMAIL }}' '${{ secrets.EPICGAME_PASSWORD }}' 0 '${{ secrets.EPICGAME_SECRET }}' > games.info
+      - name: Edit Games.info
+        if: always()
+        run: |
+          cd workdir
+          sed -i '1d' games.info
+          sed -i 's/Successfully claimed/成功领取/' games.info
+          sed -i 's/was already claimed for this account/已经领取/' games.info
+          sed -i '$d' games.info
+          date --rfc-3339=seconds >> ../games.info
+          cat games.info >> ../games.info
+          echo >> ../games.info
+      - name: Commit Files
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add .
+          git commit -m ":package: 领取游戏"
+      # 此处的 ${{ secrets.GITHUB_TOKEN }} 是 Actions 自有变量，不用管
+      - name: GitHub Push
+        uses: ad-m/github-push-action@v0.5.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      # 如果需要推送到 Telegram 用来提示，取消注释以下内容
+      # 这部分的内容可以查看 https://www.github.com/appleboy/telegram-action
+      # - name: Send Gift Info
+      #   if: always()
+      #   uses: appleboy/telegram-action@master
+      #   with:
+      #     to: ${{ secrets.TELEGRAM_TO }}
+      #     token: ${{ secrets.TELEGRAM_TOKEN }}
+      #     format: markdown
+      #     message_file: workdir/games.info

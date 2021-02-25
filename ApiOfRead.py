@@ -179,5 +179,3 @@ if other_config['tg_bot'] != []:
     for i in range(app_count):
         content=content+'账号 '+str(i)+' ：成功 '+str(len(apilist)*config['rounds']-log_list[i])+' 个，失败 '+str(log_list[i])+' 个'+'\n'
     sendTgBot(content)
-    
-    

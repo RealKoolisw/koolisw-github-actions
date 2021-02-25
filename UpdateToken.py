@@ -10,8 +10,8 @@ gh_repo=os.getenv('GH_REPO')
 #账号信息生成
 accountkey=['client_id','client_secret','ms_token']
 #account存在？
-if os.getenv('ACCOUNT')!='':
-    account=json.loads(os.getenv('ACCOUNT'))
+if os.getenv('ACCOUNT_ADD')!='':
+    account=json.loads(os.getenv('ACCOUNT_ADD'))
 else:
     account={'client_id':[],'client_secret':[],'ms_token':[]}
 account_add=os.getenv('ACCOUNT_ADD').split(",")

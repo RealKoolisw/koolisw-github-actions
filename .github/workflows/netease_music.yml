@@ -25,8 +25,7 @@ jobs:
     - name: 签到
       run: |
         
-        pip install pycryptodome
-        pip install requests
+        pip install -r netease-music/requirements.txt
         
         user='${{ secrets.NETEASE_USER }}'
         pwd='${{ secrets.NETEASE_PWD }}'
@@ -52,7 +51,7 @@ jobs:
         fi
         for ((i=0;i<$user_num;i++))
         do
-        python3 netease-music/checkin.py <<EOF
+        python3 netease-music/cheakin.py <<EOF
         ${user_list[$i]}
         ${pwd_list[$i]}
         EOF

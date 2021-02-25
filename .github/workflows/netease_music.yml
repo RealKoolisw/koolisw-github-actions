@@ -25,7 +25,8 @@ jobs:
     - name: 签到
       run: |
         
-        pip install -r netease-music/requirements.txt
+        pip install pycryptodome
+        pip install requests
         
         user='${{ secrets.NETEASE_USER }}'
         pwd='${{ secrets.NETEASE_PWD }}'

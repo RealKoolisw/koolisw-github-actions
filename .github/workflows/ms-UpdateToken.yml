@@ -37,5 +37,4 @@ jobs:
         EMAIL: ${{ secrets.MS_EMAIL }}  
         TG_BOT: ${{ secrets.TG_BOT }}  
       run: |
-        cd /microsoft-e5
-        python UpdateToken.py
+        python microsoft-e5/UpdateToken.py

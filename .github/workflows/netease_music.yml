@@ -24,8 +24,8 @@ jobs:
         python-version: 3.7
     - name: 签到
       run: |
-        cd /netease-music
-        pip install -r requirements.txt
+        
+        pip install -r /netease-music/requirements.txt
         
         user='${{ secrets.NETEASE_USER }}'
         pwd='${{ secrets.NETEASE_PWD }}'

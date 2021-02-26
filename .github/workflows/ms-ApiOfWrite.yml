@@ -1,4 +1,4 @@
-name: Run Api.Write
+name: Microsoft API Write
 
 on: 
   release:

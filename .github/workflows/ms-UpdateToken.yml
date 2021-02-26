@@ -1,5 +1,5 @@
 #每周1，4，6自动更新refresh_token
-name: Update Token
+name: Microsoft Token Update
 
 on: 
   release:

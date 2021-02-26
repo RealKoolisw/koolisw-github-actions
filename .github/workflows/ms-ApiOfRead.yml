@@ -1,4 +1,4 @@
-name: Run Api.Read
+name: Microsoft API Read
 
 on: 
   release:

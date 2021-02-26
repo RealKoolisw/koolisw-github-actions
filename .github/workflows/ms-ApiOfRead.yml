@@ -28,8 +28,8 @@ jobs:
       env: 
         GH_TOKEN: ${{ secrets.GH_TOKEN }} 
         GH_REPO: ${{ github.repository }}
-        ACCOUNT: ${{ secrets.ACCOUNT }} 
-        ACCOUNT_ADD: ${{ secrets.ACCOUNT_ADD }} 
+        ACCOUNT: ${{ secrets.ACCOUNT_ADD }} 
+        ACCOUNT_ADD: ${{ secrets.ACCOUNT }} 
         ACCOUNT_DEL: ${{ secrets.ACCOUNT_DEL }} 
         REDIRECT_URI: ${{ secrets.REDIRECT_URL }}   
         OTHER_CONFIG: ${{ secrets.OTHER_CONFIG }}  

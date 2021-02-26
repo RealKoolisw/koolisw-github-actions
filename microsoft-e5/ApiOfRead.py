@@ -3,14 +3,14 @@ import os
 import requests as req
 import json,sys,time,random
 
-if os.getenv('OTHER_CONFIG') != '':
-    print("<<<<<<<<<<<<<配置初始化中a>>>>>>>>>>>>>")
-    sys.exit()  
+if os.getenv('ACCOUNT')== '' or os.getenv('OTHER_CONFIG') == '':
+    print("<<<<<<<<<<<<<配置初始化中>>>>>>>>>>>>>")
+    sys.exit()   
 else:
     account=json.loads(os.getenv('ACCOUNT'))
     other_config=json.loads(os.getenv('OTHER_CONFIG'))
 if os.getenv('ACCOUNT_ADD') != '' or os.getenv('ACCOUNT_DEL') != '' or os.getenv('EMAIL') != '' or os.getenv('TG_BOT') != '':
-    print("<<<<<<<<<<<<<配置初始化中b>>>>>>>>>>>>>")
+    print("<<<<<<<<<<<<<配置初始化中>>>>>>>>>>>>>")
     sys.exit()  
 if account == {'client_id':[],'client_secret':[],'ms_token':[]}:
     print("尚未设置账号")
@@ -179,5 +179,3 @@ if other_config['tg_bot'] != []:
     for i in range(app_count):
         content=content+'账号 '+str(i)+' ：成功 '+str(len(apilist)*config['rounds']-log_list[i])+' 个，失败 '+str(log_list[i])+' 个'+'\n'
     sendTgBot(content)
-    
-    

@@ -4,9 +4,9 @@ import xlsxwriter
 import requests as req
 import json,sys,random
 
-if os.getenv('ACCOUNT')== '' or os.getenv('OTHER_CONFIG') != '':
-   print("<<<<<<<<<<<<<配置初始化中>>>>>>>>>>>>>")
-   sys.exit()
+if os.getenv('ACCOUNT')== '' or os.getenv('OTHER_CONFIG') == '':
+    print("<<<<<<<<<<<<<配置初始化中>>>>>>>>>>>>>")
+    sys.exit()
 else:
     account=json.loads(os.getenv('ACCOUNT'))
     other_config=json.loads(os.getenv('OTHER_CONFIG'))

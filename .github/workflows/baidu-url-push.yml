@@ -1,10 +1,7 @@
 name: Baidu Push URL
 on:
-  workflow_dispatch:
   schedule:
     - cron: '30 4 * * *'
-  watch:
-    types: started
     
 jobs:
   push-urls-to-baidu:

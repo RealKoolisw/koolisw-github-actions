@@ -35,4 +35,4 @@ jobs:
         EMAIL: ${{ secrets.EMAIL }}  
         TG_BOT: ${{ secrets.TG_BOT }}   
       run: |
-        python microsoft-e5/ApiOfRead.py
+        python ApiOfRead.py

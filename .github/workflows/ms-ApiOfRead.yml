@@ -24,7 +24,7 @@ jobs:
     - name: Install requests #安装requests模块
       run: |
         pip install requests
-    - name: run api.Read #api调用
+    - name: run api.Read #api调用 
       env: 
         GH_TOKEN: ${{ secrets.GH_TOKEN }} 
         GH_REPO: ${{ github.repository }}

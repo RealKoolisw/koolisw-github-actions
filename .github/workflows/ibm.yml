@@ -1,10 +1,9 @@
 name: IBM Cloud Auto Restart
 
 on:
+ workflow_dispatch:
   push:
     branches: master
-  watch:
-    types: started
   schedule:
     - cron: 15 20 * * *
 

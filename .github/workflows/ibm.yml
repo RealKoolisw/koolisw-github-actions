@@ -1,26 +1,39 @@
 name: IBM Cloud Auto Restart
 
 on:
- workflow_dispatch:
   push:
-    branches: master
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
   schedule:
-    - cron: 15 20 * * *
+    - cron: '0 0 * * *'
 
 jobs:
-  IBM-Cloud-CF-APP-Restart:
+  ibm-cloud-restart:
     runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v2
 
-    - name: Install CF CLI
+    - name: Init
       run: |
-        curl -L "https://packages.cloudfoundry.org/stable?release=linux64-binary&source=github&version=v6" | tar -zx
-        sudo mv cf /usr/local/bin
-      
-    - name: Login CF
-      run: cf l -a https://api.us-south.cf.cloud.ibm.com login -u "realkoolisw@gmail.com" -p ${{ secrets.IBM_PWD }}
-      
-    - name: Restart CF APP
-      run: cf rs "KooliswVM"
+        wget -q -O - https://packages.cloudfoundry.org/debian/cli.cloudfoundry.org.key | sudo apt-key add -
+        echo "deb https://packages.cloudfoundry.org/debian stable main" | sudo tee /etc/apt/sources.list.d/cloudfoundry-cli.list
+        sudo apt-get update
+        sudo apt-get install cf-cli
+    - name: Login IBM Cloud
+      env:
+        IBM_ACCOUNT: realkoolisw@gmail.com
+        IBM_PASSWORD: ${{ secrets.IBM_PWD }}
+      run: |
+        cf login -a https://api.us-south.cf.cloud.ibm.com -u $IBM_ACCOUNT << EOF
+        $IBM_PASSWORD
+        EOF
+    - name: Get IBM Cloud Apps
+      run: |
+        cf a
+    - name: Restart IBM Cloud
+      env:
+        IBM_APP_NAME: KooliswVM
+      run: |
+        cf restart $IBM_APP_NAME

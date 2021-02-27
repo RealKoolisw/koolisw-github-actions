@@ -1,0 +1,16 @@
+name: autorun
+on:
+  push:
+    branches:
+      - main
+  schedule:
+    - cron: '0 15 * * 1'
+
+jobs:
+  autorun:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+      - name: run code
+        run: python3 run.py -u ${{ secrets.FREENOM_USERNAME }} -p ${{ secrets.FREENOM_PASSWORD }}

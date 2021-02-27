@@ -1,10 +1,10 @@
-name: autorun
+name: Freenom Auto Renew
 on:
   schedule:
     - cron: '0 15 * * *'
 
 jobs:
-  autorun:
+  Auto Renew:
     runs-on: ubuntu-20.04
     steps:
       - name: checkout

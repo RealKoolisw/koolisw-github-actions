@@ -13,4 +13,4 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
       - name: run code
-        run: python3 run.py -u ${{ secrets.FREENOM_USERNAME }} -p ${{ secrets.FREENOM_PASSWORD }}
+        run: python3 freenom-renew/run.py -u ${{ secrets.FREENOM_USERNAME }} -p ${{ secrets.FREENOM_PASSWORD }}

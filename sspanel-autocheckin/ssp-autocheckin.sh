@@ -190,9 +190,9 @@ ssp_autochenkin() {
             domain_root="${domain##*.}"
             domain_text="${domain_protocol}://${domain_context:0:2}⁎⁎⁎.${domain_root}"
 
-            if [ -z "${domain}" ] || [ -z "${username}" ] || [ -z "${passwd}" ]; then
-                echo "账号信息配置异常，请检查配置" && exit 1
-            fi
+    #        if [ -z "${domain}" ] || [ -z "${username}" ] || [ -z "${passwd}" ]; then
+       #         echo "账号信息配置异常，请检查配置" && exit 1
+        #    fi
 
             login=$(curl "${domain}/auth/login" -d "email=${username}&passwd=${passwd}&code=" -c ${COOKIE_PATH} -L -k -s)
 

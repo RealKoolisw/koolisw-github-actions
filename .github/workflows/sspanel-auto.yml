@@ -7,10 +7,7 @@ on:
             - master
     schedule:
         - cron: '20 12,18 * * *'
-    watch:
-        types: 
-            - started
-
+    
 env:
     TZ: Asia/Hong_Kong
     USERS: ${{secrets.SSPANEL_USERS}}

@@ -4,7 +4,7 @@ on:
     - cron: '0 15 * * *'
 
 jobs:
-  Auto Renew:
+  AutoRenew:
     runs-on: ubuntu-20.04
     steps:
       - name: checkout

@@ -1,0 +1,38 @@
+name: SSPanel_Auto_Checkin
+
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - master
+    schedule:
+        - cron: '20 12,18 * * *'
+    watch:
+        types: 
+            - started
+
+env:
+    TZ: Asia/Hong_Kong
+    USERS: ${{secrets.SSPANEL_USERS}}
+    PUSH_KEY: ${{secrets.SSPANEL_PUSH_KEY}}
+    PUSH_TURBO_KEY: ${{secrets.SSPANEL_PUSH_TURBO_KEY}}
+    QMSG_KEY: ${{secrets.SSPANEL_QMSG_KEY}}
+    TELEGRAMBOT_TOKEN: ${{ secrets.TELEGRAMBOT_TOKEN }} 
+    TELEGRAMBOT_CHATID: ${{ secrets.TELEGRAMBOT_CHATID }}
+    DISPALY_CONTEXT: ${{ secrets.DISPALY_CONTEXT }}
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout codes
+              uses: actions/checkout@v2
+            
+            - name: Install depends
+              run: |
+                sudo apt-get update
+                sudo apt-get -y install curl jq
+            - name: Request API
+              run: |
+                bash sspanel-autocheckin/ssp-autocheckin.sh

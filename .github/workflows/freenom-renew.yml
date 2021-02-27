@@ -1,7 +1,7 @@
 name: autorun
 on:
   schedule:
-    - cron: '0 15 * * 1'
+    - cron: '0 15 * * *'
 
 jobs:
   autorun:

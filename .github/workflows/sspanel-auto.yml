@@ -3,7 +3,7 @@ name: SSPanel_Auto_Checkin
 on:
     workflow_dispatch:
     schedule:
-        - cron: '20 12,18 * * *'
+        - cron: '20 12 * * *'
     
 env:
     TZ: Asia/Hong_Kong

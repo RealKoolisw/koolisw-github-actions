@@ -47,7 +47,7 @@ async function start() {
     await changeFiele();
     console.log('替换变量完毕')
     // 执行
-    await exec("node iQIYI.js >> result.txt");
+    await exec("node iqiyi/iQIYI.js >> result.txt");
     console.log('执行完毕')
     const path = "./result.txt";
     let content = "";

@@ -16,12 +16,10 @@ jobs:
                   node-version: 10.x
             - name: npm install
               run: |
-                  cd /iqiyi
                   npm install
             - name: "运行【爱奇艺会员签到】"
               run: |
-                  cd /iqiyi
-                  node iqiyi.js
+                  node iqiyi/iqiyi.js
               env:
                   iQIYI_COOKIE: ${{ secrets.iQIYI_COOKIE }}
                   SEND_KEY: ${{ secrets.SEND_KEY }}
